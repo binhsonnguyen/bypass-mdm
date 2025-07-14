@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Exit immediately if a command exits with a non-zero status.
+set -e
+
 # Define color codes
 RED='\033[1;31m'
 GRN='\033[1;32m'
