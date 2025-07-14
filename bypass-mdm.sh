@@ -12,6 +12,8 @@ PUR='\033[1;35m'
 CYAN='\033[1;36m'
 NC='\033[0m'
 
+# --- Functions ---
+
 get_system_volume() {
     local volume_name
     volume_name=$(diskutil info / | grep "Volume Name:" | awk -F': ' '{print $2}')
@@ -24,6 +26,7 @@ get_system_volume() {
 }
 
 perform_mdm_bypass_recovery() {
+    # Get the system volume name dynamically
     local system_volume
     system_volume=$(get_system_volume)
     local system_volume_path="/Volumes/${system_volume}"
@@ -107,11 +110,12 @@ disable_notification_recovery() {
 check_mdm_enrollment() {
     # Check MDM Enrollment - This runs on a booted OS
     echo ""
-    echo -e "${GRN}Check MDM Enrollment. Error is success${NC}"
+    echo -e "${YEL}Attempting to check MDM enrollment status...${NC}"
+    echo "If the command below fails or shows an error, it's a good sign that the bypass was successful."
     echo ""
     echo -e "${RED}Please Insert Your Password To Proceed${NC}"
     echo ""
-    sudo profiles show -type enrollment
+    sudo profiles show -type enrollment || true
 }
 
 reboot_system() {
@@ -124,38 +128,39 @@ reboot_system() {
 # --- Main Script ---
 
 # Display header
-echo -e "${CYAN}Bypass MDM${NC}"
+echo -e "${CYAN}Bypass MDM Utility${NC}"
 echo ""
 
 # Prompt user for choice
 PS3='Please enter your choice: '
 options=(
-    "Bypass MDM from Recovery"
-    "Disable Notification (SIP) - This runs on a booted OS"
-    "Disable Notification (Recovery)"
-    "Check MDM Enrollment"
-    "Exit & Reboot"
+    "Bypass MDM (Run from Recovery)"
+    "Disable Notifications (Run from Recovery)"
+    "Check MDM Enrollment (Run on Booted OS)"
+    "Disable Notifications (Run on Booted OS with SIP off)"
+    "Reboot Mac"
+    "Quit"
 )
 select opt in "${options[@]}"; do
     case $opt in
-        "Bypass MDM from Recovery")
+        "Bypass MDM (Run from Recovery)")
             perform_mdm_bypass_recovery
             break
             ;;
-        "Disable Notification (SIP)")
-            disable_notification_sip
-            break
-            ;;
-        "Disable Notification (Recovery)")
+        "Disable Notifications (Run from Recovery)")
             disable_notification_recovery
-            break
             ;;
-        "Check MDM Enrollment")
+        "Check MDM Enrollment (Run on Booted OS)")
             check_mdm_enrollment
+            ;;
+        "Disable Notifications (Run on Booted OS with SIP off)")
+            disable_notification_sip
+            ;;
+        "Reboot Mac")
+            reboot_system
             break
             ;;
-        "Reboot & Exit")
-            reboot_system
+        "Quit")
             break
             ;;
         *) echo "Invalid option $REPLY" ;;
