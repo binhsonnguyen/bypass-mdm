@@ -69,11 +69,12 @@ EOF
     echo -e "${GRN}Successfully blocked MDM & Profile Domains"
 
     # Remove configuration profiles
+    local config_profile_dir="${system_volume_path}/var/db/ConfigurationProfiles/Settings"
     touch /Volumes/Data/private/var/db/.AppleSetupDone
-    rm -rf /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigHasActivationRecord
-    rm -rf /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigRecordFound
-    touch /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigProfileInstalled
-    touch /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigRecordNotFound
+    rm -f "${config_profile_dir}/.cloudConfigHasActivationRecord"
+    rm -f "${config_profile_dir}/.cloudConfigRecordFound"
+    touch "${config_profile_dir}/.cloudConfigProfileInstalled"
+    touch "${config_profile_dir}/.cloudConfigRecordNotFound"
 
     echo -e "${GRN}MDM enrollment has been bypassed!${NC}"
     echo -e "${NC}Exit terminal and reboot your Mac.${NC}"
