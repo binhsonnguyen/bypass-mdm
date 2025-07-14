@@ -92,10 +92,16 @@ disable_notification_sip() {
 
 disable_notification_recovery() {
     # Disable Notification (Recovery)
-    rm -rf /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigHasActivationRecord
-    rm -rf /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigRecordFound
-    touch /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigProfileInstalled
-    touch /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigRecordNotFound
+    local system_volume
+    system_volume=$(get_system_volume)
+    local config_profile_dir="/Volumes/${system_volume}/var/db/ConfigurationProfiles/Settings"
+
+    echo -e "${YEL}Disabling MDM notifications on volume ${system_volume}...${NC}"
+    rm -f "${config_profile_dir}/.cloudConfigHasActivationRecord"
+    rm -f "${config_profile_dir}/.cloudConfigRecordFound"
+    touch "${config_profile_dir}/.cloudConfigProfileInstalled"
+    touch "${config_profile_dir}/.cloudConfigRecordNotFound"
+    echo -e "${GRN}Disabled MDM notifications.${NC}"
 }
 
 check_mdm_enrollment() {
