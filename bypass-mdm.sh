@@ -108,6 +108,9 @@ reboot_system() {
     reboot
 }
 
+
+# --- Main Script ---
+
 # Display header
 echo -e "${CYAN}Bypass MDM${NC}"
 echo ""
