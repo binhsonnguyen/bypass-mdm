@@ -24,10 +24,16 @@ get_system_volume() {
 }
 
 perform_mdm_bypass_recovery() {
-    # Bypass MDM from Recovery
-    echo -e "${YEL}Bypass MDM from Recovery"
-    if [ -d "/Volumes/Macintosh HD - Data" ]; then
-        diskutil rename "Macintosh HD - Data" "Data"
+    local system_volume
+    system_volume=$(get_system_volume)
+    local system_volume_path="/Volumes/${system_volume}"
+    local data_volume_path="/Volumes/${system_volume} - Data"
+
+    echo -e "${YEL}Bypass MDM from Recovery on volume: ${system_volume}${NC}"
+
+    if [ -d "$data_volume_path" ]; then
+        echo "Renaming '$data_volume_path' to '/Volumes/Data'..."
+        diskutil rename "$data_volume_path" "Data"
     fi
 
     # Create Temporary User
