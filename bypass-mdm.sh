@@ -75,6 +75,16 @@ disable_notification_recovery() {
     touch /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigRecordNotFound
 }
 
+check_mdm_enrollment() {
+    # Check MDM Enrollment
+    echo ""
+    echo -e "${GRN}Check MDM Enrollment. Error is success${NC}"
+    echo ""
+    echo -e "${RED}Please Insert Your Password To Proceed${NC}"
+    echo ""
+    sudo profiles show -type enrollment
+}
+
 # Display header
 echo -e "${CYAN}Bypass MDM By Assaf Dori (assafdori.com)${NC}"
 echo ""
@@ -97,13 +107,7 @@ select opt in "${options[@]}"; do
             break
             ;;
         "Check MDM Enrollment")
-            # Check MDM Enrollment
-            echo ""
-            echo -e "${GRN}Check MDM Enrollment. Error is success${NC}"
-            echo ""
-            echo -e "${RED}Please Insert Your Password To Proceed${NC}"
-            echo ""
-            sudo profiles show -type enrollment
+            check_mdm_enrollment
             break
             ;;
         "Reboot & Exit")
