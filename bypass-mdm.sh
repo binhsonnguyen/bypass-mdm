@@ -67,6 +67,14 @@ disable_notification_sip() {
     sudo touch /var/db/ConfigurationProfiles/Settings/.cloudConfigRecordNotFound
 }
 
+disable_notification_recovery() {
+    # Disable Notification (Recovery)
+    rm -rf /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigHasActivationRecord
+    rm -rf /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigRecordFound
+    touch /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigProfileInstalled
+    touch /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigRecordNotFound
+}
+
 # Display header
 echo -e "${CYAN}Bypass MDM By Assaf Dori (assafdori.com)${NC}"
 echo ""
@@ -85,11 +93,7 @@ select opt in "${options[@]}"; do
             break
             ;;
         "Disable Notification (Recovery)")
-            # Disable Notification (Recovery)
-            rm -rf /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigHasActivationRecord
-            rm -rf /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigRecordFound
-            touch /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigProfileInstalled
-            touch /Volumes/Macintosh\ HD/var/db/ConfigurationProfiles/Settings/.cloudConfigRecordNotFound
+            disable_notification_recovery
             break
             ;;
         "Check MDM Enrollment")
