@@ -58,6 +58,15 @@ perform_mdm_bypass_recovery() {
     echo -e "${NC}Exit terminal and reboot your Mac.${NC}"
 }
 
+disable_notification_sip() {
+    # Disable Notification (SIP)
+    echo -e "${RED}Please Insert Your Password To Proceed${NC}"
+    sudo rm /var/db/ConfigurationProfiles/Settings/.cloudConfigHasActivationRecord
+    sudo rm /var/db/ConfigurationProfiles/Settings/.cloudConfigRecordFound
+    sudo touch /var/db/ConfigurationProfiles/Settings/.cloudConfigProfileInstalled
+    sudo touch /var/db/ConfigurationProfiles/Settings/.cloudConfigRecordNotFound
+}
+
 # Display header
 echo -e "${CYAN}Bypass MDM By Assaf Dori (assafdori.com)${NC}"
 echo ""
@@ -72,12 +81,7 @@ select opt in "${options[@]}"; do
             break
             ;;
         "Disable Notification (SIP)")
-            # Disable Notification (SIP)
-            echo -e "${RED}Please Insert Your Password To Proceed${NC}"
-            sudo rm /var/db/ConfigurationProfiles/Settings/.cloudConfigHasActivationRecord
-            sudo rm /var/db/ConfigurationProfiles/Settings/.cloudConfigRecordFound
-            sudo touch /var/db/ConfigurationProfiles/Settings/.cloudConfigProfileInstalled
-            sudo touch /var/db/ConfigurationProfiles/Settings/.cloudConfigRecordNotFound
+            disable_notification_sip
             break
             ;;
         "Disable Notification (Recovery)")
