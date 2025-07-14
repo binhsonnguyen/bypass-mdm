@@ -85,8 +85,14 @@ check_mdm_enrollment() {
     sudo profiles show -type enrollment
 }
 
+reboot_system() {
+    # Reboot & Exit
+    echo "Rebooting..."
+    reboot
+}
+
 # Display header
-echo -e "${CYAN}Bypass MDM By Assaf Dori (assafdori.com)${NC}"
+echo -e "${CYAN}Bypass MDM${NC}"
 echo ""
 
 # Prompt user for choice
@@ -111,9 +117,7 @@ select opt in "${options[@]}"; do
             break
             ;;
         "Reboot & Exit")
-            # Reboot & Exit
-            echo "Rebooting..."
-            reboot
+            reboot_system
             break
             ;;
         *) echo "Invalid option $REPLY" ;;
