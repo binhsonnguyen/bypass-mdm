@@ -81,12 +81,13 @@ EOF
 }
 
 disable_notification_sip() {
-    # Disable Notification (SIP)
+    # Disable Notification (SIP) - This runs on a booted OS
     echo -e "${RED}Please Insert Your Password To Proceed${NC}"
-    sudo rm /var/db/ConfigurationProfiles/Settings/.cloudConfigHasActivationRecord
-    sudo rm /var/db/ConfigurationProfiles/Settings/.cloudConfigRecordFound
+    sudo rm -f /var/db/ConfigurationProfiles/Settings/.cloudConfigHasActivationRecord
+    sudo rm -f /var/db/ConfigurationProfiles/Settings/.cloudConfigRecordFound
     sudo touch /var/db/ConfigurationProfiles/Settings/.cloudConfigProfileInstalled
     sudo touch /var/db/ConfigurationProfiles/Settings/.cloudConfigRecordNotFound
+    echo -e "${GRN}Disabled MDM notifications.${NC}"
 }
 
 disable_notification_recovery() {
