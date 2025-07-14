@@ -24,7 +24,7 @@
 
 4. Enter Recovery Mode & Open Safari.
 
-5. Navigate to this repo (github.com/...).
+5. Navigate to this repo `https://github.com/binhsonnguyen/bypass-mdm/`.
 
 6. Copy the script below:
 
