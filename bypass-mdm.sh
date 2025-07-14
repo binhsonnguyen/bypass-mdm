@@ -105,7 +105,7 @@ disable_notification_recovery() {
 }
 
 check_mdm_enrollment() {
-    # Check MDM Enrollment
+    # Check MDM Enrollment - This runs on a booted OS
     echo ""
     echo -e "${GRN}Check MDM Enrollment. Error is success${NC}"
     echo ""
@@ -131,7 +131,7 @@ echo ""
 PS3='Please enter your choice: '
 options=(
     "Bypass MDM from Recovery"
-    "Disable Notification (SIP)"
+    "Disable Notification (SIP) - This runs on a booted OS"
     "Disable Notification (Recovery)"
     "Check MDM Enrollment"
     "Exit & Reboot"
