@@ -68,6 +68,7 @@ perform_mdm_bypass_recovery() {
 0.0.0.0 deviceenrollment.apple.com
 0.0.0.0 mdmenrollment.apple.com
 0.0.0.0 iprofiles.apple.com
+0.0.0.0 gdmf.apple.com
 EOF
     echo -e "${GRN}Successfully blocked MDM & Profile Domains"
 
