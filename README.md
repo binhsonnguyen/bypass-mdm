@@ -8,7 +8,6 @@
 - **It is advised to re-install MacOS using an external flash drive.**
 - **Device language needs to be set to English, it can be changed afterwards.**
 
-
 #### Follow steps below to bypass MDM setup during a fresh installation of MacOS
 
 > Upon arriving to the setup stage of forced MDM enrollement:
@@ -29,7 +28,10 @@
 6. Copy the script below:
 
 ```zsh
-curl https://raw.githubusercontent.com/binhsonnguyen/bypass-mdm/refs/heads/main/bypass-mdm.sh -o bypass-mdm.sh && chmod +x ./bypass-mdm.sh && ./bypass-mdm.sh
+curl https://raw.githubusercontent.com/binhsonnguyen/bypass-mdm/refs/heads/main/bypass-mdm.sh \
+    -o bypass-mdm.sh \
+  && chmod +x ./bypass-mdm.sh \
+  && ./bypass-mdm.sh
 ```
 
 7. Launch Terminal (Utilities > Terminal).
@@ -40,7 +42,7 @@ curl https://raw.githubusercontent.com/binhsonnguyen/bypass-mdm/refs/heads/main/
 
 10. Press Enter to leave the default username 'Apple'.
 
-11. Press Enter to leave the default  password '1234'.
+11. Press Enter to leave the default password '1234'.
 
 12. Wait for the script to finish & Reboot your Mac.
 
