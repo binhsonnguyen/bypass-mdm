@@ -39,24 +39,25 @@ perform_mdm_bypass_recovery() {
     # Create Temporary User
     echo -e "${NC}Create a Temporary User"
     read -p "Enter Temporary Fullname (Default is 'Apple'): " realName
-    realName="${realName:=Apple}"
+    realName="${realName:-Apple}"
     read -p "Enter Temporary Username (Default is 'Apple'): " username
-    username="${username:=Apple}"
+    username="${username:-Apple}"
     read -p "Enter Temporary Password (Default is '1234'): " passw
-    passw="${passw:=1234}"
+    passw="${passw:-1234}"
 
     # Create User
-    dscl_path='/Volumes/Data/private/var/db/dslocal/nodes/Default'
-    echo -e "${GREEN}Creating Temporary User"
-    dscl -f "$dscl_path" localhost -create "/Local/Default/Users/$username"
-    dscl -f "$dscl_path" localhost -create "/Local/Default/Users/$username" UserShell "/bin/zsh"
-    dscl -f "$dscl_path" localhost -create "/Local/Default/Users/$username" RealName "$realName"
-    dscl -f "$dscl_path" localhost -create "/Local/Default/Users/$username" UniqueID "501"
-    dscl -f "$dscl_path" localhost -create "/Local/Default/Users/$username" PrimaryGroupID "20"
-    mkdir "/Volumes/Data/Users/$username"
-    dscl -f "$dscl_path" localhost -create "/Local/Default/Users/$username" NFSHomeDirectory "/Users/$username"
-    dscl -f "$dscl_path" localhost -passwd "/Local/Default/Users/$username" "$passw"
-    dscl -f "$dscl_path" localhost -append "/Local/Default/Groups/admin" GroupMembership $username
+    local dscl_path='/Volumes/Data/private/var/db/dslocal/nodes/Default'
+    local user_home_dir="/Volumes/Data/Users/${username}"
+    echo -e "${GRN}Creating Temporary User '$username'..."
+    mkdir -p "$user_home_dir"
+    dscl -f "$dscl_path" localhost -create "/Local/Default/Users/${username}"
+    dscl -f "$dscl_path" localhost -create "/Local/Default/Users/${username}" UserShell "/bin/zsh"
+    dscl -f "$dscl_path" localhost -create "/Local/Default/Users/${username}" RealName "$realName"
+    dscl -f "$dscl_path" localhost -create "/Local/Default/Users/${username}" UniqueID "501"
+    dscl -f "$dscl_path" localhost -create "/Local/Default/Users/${username}" PrimaryGroupID "20"
+    dscl -f "$dscl_path" localhost -create "/Local/Default/Users/${username}" NFSHomeDirectory "/Users/${username}"
+    dscl -f "$dscl_path" localhost -passwd "/Local/Default/Users/${username}" "$passw"
+    dscl -f "$dscl_path" localhost -append "/Local/Default/Groups/admin" GroupMembership "$username"
 
     # Block MDM domains
     echo "0.0.0.0 deviceenrollment.apple.com" >>/Volumes/Macintosh\ HD/etc/hosts
