@@ -12,6 +12,17 @@ PUR='\033[1;35m'
 CYAN='\033[1;36m'
 NC='\033[0m'
 
+get_system_volume() {
+    local volume_name
+    volume_name=$(diskutil info / | grep "Volume Name:" | awk -F': ' '{print $2}')
+
+    if [[ -z "$volume_name" ]]; then
+        echo -e "${RED}Error: Could not determine the system volume name. Exiting.${NC}" >&2
+        exit 1
+    fi
+    echo "$volume_name" | xargs
+}
+
 perform_mdm_bypass_recovery() {
     # Bypass MDM from Recovery
     echo -e "${YEL}Bypass MDM from Recovery"
